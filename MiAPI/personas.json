@@ -5,7 +5,7 @@
     "nombre": "Laura",
     "apellidos": "García Pérez",
     "telefono": "600123456",
-    "correo": "laura.garcia@example.com"
+    "correo": "laura.garcia@gmail.com"
   },
   {
     "id": 2,
@@ -13,6 +13,6 @@
     "nombre": "Carlos",
     "apellidos": "López Ruiz",
     "telefono": "611987654",
-    "correo": "carlos.lopez@example.com"
+    "correo": "carlos.lopez@gmail.com"
   }
 ]
