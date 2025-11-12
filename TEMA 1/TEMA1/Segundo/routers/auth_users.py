@@ -45,7 +45,7 @@ users_db = {
     }
 }
 
-@app.post("/login")
+@router.post("/login")
 async def login(form: OAuth2PasswordRequestForm = Depends()):
     # Miramos si el usuario existe en la Base de Datos
     user_db = fake_users_db.get(form.username)
