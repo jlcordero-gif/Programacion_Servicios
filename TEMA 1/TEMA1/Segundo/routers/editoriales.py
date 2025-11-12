@@ -53,20 +53,20 @@ def next_Id_editorial() -> int:
 # endpoints eeditoriales
 
 @router.get("/editoriales", response_model=List[Editorial])
-def editorials():
+def editoriales():
     return editoriales_list
 
-@router.get("/editorials/{Id}", response_model= Editorial)
+@router.get("/editoriales/{Id}", response_model= Editorial)
 def get_editorial(Id: int): 
     return search_editorial(Id)
 
-@router.post("/editorials", status_code=201, response_model= Editorial)
+@router.post("/editoriales", status_code=201, response_model= Editorial)
 def add_editorial(editorial: Editorial): 
     editorial.Id = next_Id_editorial() 
-    editoriales_list.append(Editorial)
+    editoriales_list.append(editorial)
     return editorial
 
-@router.put("/editorials/{Id}", response_model=Editorial)
+@router.put("/editoriales/{Id}", response_model=Editorial)
 def modify_editorial(Id: int, editorial: Editorial):
     for index, saved_editorial in enumerate(editoriales_list):
         if saved_editorial.Id == Id:
@@ -77,7 +77,7 @@ def modify_editorial(Id: int, editorial: Editorial):
     raise HTTPException(status_code=404, detail="Editorial not found")
 
 
-@router.delete("/editorials/{Id}")
+@router.delete("/editoriales/{Id}")
 def delete_editorial(Id: int):
     
     for saved_editorial in editoriales_list:
