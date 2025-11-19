@@ -10,7 +10,7 @@ from pwdlib import PasswordHash
 from pydantic import BaseModel
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
-ouatha2 = OAuth2PasswordBearer(tokenUrl = "login")
+oauth2 = OAuth2PasswordBearer(tokenUrl = "login")
 
 #Definimos el algoritmo de encriptacion
 ALGORITHM = "HS256"
@@ -37,7 +37,7 @@ class UserDB(User):
     password:str
 
 users_db = {
-    
+
     "jlcordero": {
     "username" :  "jlcordero",
     "fullname" : "Jose Luis Cordero Fuentes",
@@ -90,3 +90,16 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
         #raise HTTPException(status_code=401, detail="Contraseña incorrecta") 
     except:
         raise HTTPException(status_code=400, detail="Error en la autenticación")
+    raise HTTPException(status_code=401, detail="Usuario o contraseña incorrectos")
+
+async def authentication(token: str = Depends(oauth2)):
+    try:
+        username = jwt.decode(token, SECRET_KEY, algorithm=ALGORITHM).get("sub")
+        if username is None:
+            raise HTTPException(status_code=401, detail= "Credenciales de autenticacion inválidas"
+                                headers= {"WWW-Authenticate" : "Bearer" })
+    except PyJWTError:
+        raise HTTPException(status_code=401, detail= "Credenciales de autenticacion inválidas"
+                                headers= {"WWW-Authenticate" : "Bearer"})
+    
+    user = User(**users_db[username])
