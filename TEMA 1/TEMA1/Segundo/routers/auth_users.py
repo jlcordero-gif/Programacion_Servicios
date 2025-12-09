@@ -96,10 +96,10 @@ async def authentication(token: str = Depends(oauth2)):
     try:
         username = jwt.decode(token, SECRET_KEY, algorithm=ALGORITHM).get("sub")
         if username is None:
-            raise HTTPException(status_code=401, detail= "Credenciales de autenticacion inválidas"
-                                headers= {"WWW-Authenticate" : "Bearer" })
-    except PyJWTError:
-        raise HTTPException(status_code=401, detail= "Credenciales de autenticacion inválidas"
-                                headers= {"WWW-Authenticate" : "Bearer"})
+            raise HTTPException(status_code=401, detail="Credenciales de autenticacion inválidas",
+                                headers={"WWW-Authenticate": "Bearer"})
+    except InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Credenciales de autenticacion inválidas",
+                                headers={"WWW-Authenticate": "Bearer"})
     
     user = User(**users_db[username])
