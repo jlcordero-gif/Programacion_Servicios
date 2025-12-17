@@ -1,3 +1,7 @@
 {
-    
+    "mdb.presetConnections": [
+        {
+            "name": "Preset Connection",
+        }
+    ]
 }
